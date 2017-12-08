@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -22,6 +23,7 @@
 <!----font-Awesome----->
 </head>
 <body>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <div class="header_bg1">
 <div class="container">
 	<div class="row header">
@@ -90,15 +92,49 @@
 						 <p>INDIA</p>
 				   		<p>Phone:(+91) 9210842216</p>
 				   		<p>Fax: (000) 000 00 00 0</p>
-				 	 	<p>Email: <a href="neerajgahlawatmcajava@gmail.com">info(at)challengeJava.com</a></p>
+				 	 	<p>Email: <a href="challengejava@gmail.com">info(at)challengeJava.com</a></p>
 				   		<p>Follow on: <a href="#">Facebook</a>, <a href="#">Twitter</a></p>
 				   	</address>
 				</div>
 				<div class="col-md-8">
 				  <div class="contact-form">
 				  	<h2>Contact Us</h2>
-					    <form method="post" action="contact-post.html">
-					    	<div>
+					    <form:form action="${contextPath}/contactus" modelAttribute="contact" method="post">
+					    	<table>
+					    		<tr>
+					    			<td><form:label path="username" cssClass="required">USER EMAIL</form:label></td>
+					    		</tr>
+					    		<tr>
+					    			<td><form:input path="username" cssClass="form-control" id="userName" placeholder="User name.."/></td>
+					    		</tr>
+					    		<tr>
+					    			<td><form:label path="from" cssClass="required" id="inputEmail3">FROM</form:label></td>
+					    		</tr>
+					    		<tr>
+					    			<td><form:input path="from" cssClass="form-control" id="from" placeholder="challegnejava@gmail.com" readonly="true" /></td>
+					    		</tr>
+					    		<tr>
+					    			<td><form:label path="to" cssClass="required" id="inputEmail3">TO</form:label></td>
+					    		</tr>
+					    		<tr>
+					    			<td><form:input path="to" cssClass="form-control" id="to" placeholder="challegnejava@gmail.com" readonly="true"/></td>
+					    		</tr>
+					    		<tr>
+					    			<td><form:label path="subject" cssClass="required" id="subject">SUBJECT</form:label></td>
+					    		</tr>
+					    		<tr>
+					    			<td><form:input path="subject" cssClass="form-control" id="subject" placeholder="Subject.." /></td>
+					    		</tr>
+					    		<tr>
+					    			<td><form:label path="message" cssClass="required" id="subject">MESSAGE</form:label></td>
+					    		</tr>
+					    		<tr>
+					    			<td><form:textarea path="message" cssClass="form-control" id="body" placeholder="" /></td>
+					    		</tr>
+					    		<tr><td></td></tr>
+					    		<tr><td><form:button value="submit us">Send</form:button></td></tr>
+					    	</table>
+					    	<!-- <div>
 						    	<span>name</span>
 						    	<span><input type="username" class="form-control" id="userName"></span>
 						    </div>
@@ -112,8 +148,8 @@
 						    </div>
 						   <div>
 						   		<label class="fa-btn btn-1 btn-1e"><input type="submit" value="submit us"></label>
-						  </div>
-					    </form>
+						  </div> -->
+					    </form:form>
 				    </div>
   			</div>		
   			<div class="clearfix"></div>		

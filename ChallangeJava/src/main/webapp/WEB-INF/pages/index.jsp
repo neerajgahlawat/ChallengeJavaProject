@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -55,6 +56,12 @@
 <!----font-Awesome----->
    	<link rel="stylesheet" href="<c:url value='/resources/fonts/css/font-awesome.min.css' />">
 <!----font-Awesome----->
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<style type="text/css">
+	ul li, ol li {
+     line-height:160%; /*or whatever height you like*/
+}
+</style>
 </head>
 <body>
 <div class="header_bg">
@@ -90,9 +97,9 @@
 		      <ul class="nav navbar-nav">
 		        <li class="active"><a href="<c:url value='/' />">HOME</a></li>
 		        <li><a href="<c:url value='/tech' />">JAVA</a></li>
+		        <li><a href="<c:url value='/' />">INTERVIEW</a></li>
 		        <li><a href="<c:url value='/about' />">ABOUT US</a></li>
 		        <li><a href="<c:url value='/blog' />">BLOG</a></li>
-		        <li><a href="<c:url value='/contact' />">CAREER</a></li>
 		        <li><a href="<c:url value='/contact' />">CONTACT US</a></li>
 		      </ul>
 		    </div><!-- /.navbar-collapse -->
@@ -111,39 +118,42 @@
 </div>
 <div class="slider_bg" ><!-- start slider -->
 	<div class="container">
-		<div style="width: 32em;float: right;height: 46em;">
+		<div style="width: 32em;float: right;height: 46em;background-color: silver;">
 			<!-- <div class="col-md-6 content_right" style=" width: 50em;float: right; height: 38em;">form start
 				 
 			</div>form end -->
-			<form action="" style="margin-top: 5em;">
+			<c:if test="${SUCCESS_MESSAGE != null}">
+ 				 <h5 id="status_message">${SUCCESS_MESSAGE}</h5>
+			</c:if> 
+			<form:form action="${contextPath}/notifyme" modelAttribute="notify" style="margin-top: 5em;" method="post">
 					<table>
 						<tr>
-							<td><label for="fname" class="required">FIRST NAME</label></td>
+							<td><form:label path="firstName" class="required">FIRST NAME</form:label></td>
 						</tr>
 						<tr>
-							<td> <input type="text" id="fname" name="firstname" placeholder="Your name.." required="required" style="height: 4em;width: 30em;"></td>
+							<td> <form:input path="firstName" id="fname" name="firstname" placeholder="Your name.." required="required" style="height: 4em;width: 30em;"/></td>
 						</tr>
 						<tr>
-							<td><label for="lname" class="required">LAST NAME</label></td>
+							<td><form:label path="lastName" class="required">LAST NAME</form:label></td>
 						</tr>
 						<tr>
-							<td> <input type="text" id="lname" name="lastname" placeholder="Your last name.." required="required"  style="height: 4em;width: 30em;"></td>
+							<td> <form:input path="lastName"  id="lname" name="lastname" placeholder="Your last name.." required="required"  style="height: 4em;width: 30em;"/></td>
 						</tr>
 						<tr>
-							<td><label for="email" class="required">EMAIL</label></td>
+							<td><form:label path="email" class="required">EMAIL</form:label></td>
 						</tr>
 						<tr>
-							<td><input id="email" name="email" placeholder="Your Email.." required="required"  style="height: 4em;width: 30em;"></input> </td>
+							<td><form:input path="email" id="email" name="email" placeholder="Your Email.." required="required"  style="height: 4em;width: 30em;"/> </td>
 						</tr>
 						<tr>
-							<td><label for="phone" class="required">PHONE NO:</label></td>
+							<td><form:label path="phone" class="required">PHONE NO:</form:label></td>
 						</tr>
 						<tr>
-							<td><input id="phone" name="phone" placeholder="Your phone No.." required="required"  style="height: 4em;width: 30em;"></input></td>
+							<td><form:input path="phone" id="phone" name="phone" placeholder="Your phone No.." required="required"  style="height: 4em;width: 30em;"/></td>
 						</tr>
-						<tr><td><input type="submit" value="NOTIFY ME" style="height: 3em; width: 30em;background-color: #2df109; margin-top: 3em;"></td></tr>
+						<tr><td><form:button name="notifyme" value="NOTIFY ME" style="height: 3em; width: 30em;background-color: #2df109; margin-top: 3em;">NOTIFY ME</form:button></td></tr>
 					</table>			
-				 </form>
+				 </form:form>
 				 <h5>contact for free demo class</h5>
 				 <h4>+91-9210842216</h4>
 				 <h5>challengejava@gmail.com</h5>
@@ -151,17 +161,17 @@
 		<div id="da-slider" class="da-slider" style="width: 80em;float: left;">
 			<div class="da-slide" >
 				<h2>CHALLENGE JAVA</h2>
-				<p>Challenge Java  offers online and off line platform where students, professionals can learn about Java<span class="hide_text"> We have experinced tranners.</span></p>
+				<!-- <p>Challenge Java  offers online and off line platform where students, professionals can learn about Java<span class="hide_text"> We have experinced tranners.</span></p> -->
 				<!-- <h3 class="da-link"><a href="single-page.html" class="fa-btn btn-1 btn-1e">view more</a></h3> -->
 			</div>
 			 <div class="da-slide">
 				<h2>CARRER OPPERTUNITES</h2>
-				<p>Our trainner and students are key to our success.<span class="hide_text"></span></p>
+				<!-- <p>Our trainner and students are key to our success.<span class="hide_text"></span></p> -->
 				<!-- <h3 class="da-link"><a href="single-page.html" class="fa-btn btn-1 btn-1e">view more</a></h3> -->
 			</div>
 			<div class="da-slide">
 				<h2>SHAPE YOUR FUTURE</h2>
-				<p>Challenge java is a leading name in the computer trainning.<span class="hide_text"></span></p>
+				<!-- <p>Challenge java is a leading name in the computer trainning.<span class="hide_text"></span></p> -->
 				<!-- <h3 class="da-link"><a href="single-page.html" class="fa-btn btn-1 btn-1e">view more</a></h3> -->
 			</div>
 			<!--<div class="da-slide">
@@ -172,7 +182,7 @@
 	   </div>
 	</div>
 </div><!-- end slider -->
-<!-- <div class="main_bg">start main
+<div class="main_bg">start main
 	<div class="container">
 		<div class="main row">
 			<div class="col-md-3 images_1_of_4 text-center">
@@ -201,7 +211,7 @@
 			</div>	
 		</div>
 	</div>
-</div>end main -->
+</div>end main
 <div class="main_btm"><!-- start main_btm -->
 	<div class="container">
 		<div class="main row">
@@ -209,9 +219,11 @@
 				<img src="<c:url value='/resources/images/pic1.jpg' />" alt="" class="img-responsive">
 			</div>
 			<div class="col-md-6 content_right">
-				<h4>Lorem Ipsum is simply <span>dummy text of the ornare  </span> vulputate printing and  There are many variations of passages.</h4>
-				<p class="para">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words. </p>
-				<a href="single-page.html" class="fa-btn btn-1 btn-1e">read more</a>
+				<h4>OUR MENTORS</h4>
+				<p class="para">Mentors play an essential role in an institute, the level of education, development of student’s skills are based on their trainers. If you do not have a good mentor then you may lagin many things from others and that is why we at Ducat gives you the facility of skilled employees so that you do not feel unsecured about the academics.</p>
+				<p class="para">Personality development and academic status are some of those things which lie on mentor’s hands. If you are trained well then you can do well in your future and knowing its importance Ducat always tries to give you the best.</p>
+				<p class="para">We have a great team of skilled mentors who are always ready to direct their trainees in the best possible way they ca and to ensure the skills of mentors we held many skill development programs as well so that each and every mentor can develop their own skills with the demands of the companies so that they can prepare a complete packaged trainee.</p>
+				<!-- <a href="single-page.html" class="fa-btn btn-1 btn-1e">read more</a> -->
 			</div>
 		</div>
 				<!----start-img-cursual---->
@@ -352,11 +364,65 @@
 					<!----//End-img-cursual---->
 	</div>
 </div>
+<div class="author_view">
+	<div class="container" style="border: 1em;background-color: #f44242;">
+			<h2>Author view</h2>
+		<div class="col-md-2" style="border: 1em;background-color: pink;"> 
+			<img  data-src="<c:url value='/resources/images/author_jpg.jpg' />" width="200" height="200" alt="Author">
+		</div>
+		<div class="col-md-10">
+			<H5><b><i>Hi, I have written and developed this site so that students may learn computer science related technologies easily. I'm committed to provide</i></b></H5>
+			<H5><b><i>easy and in-depth tutorials on various technologies. No one is perfect in this world and nothing is eternally best. But we can try to be better.</i></b></H5>
+			<h5><b><i>I hope it will help you a lot.</i></b></h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h5>-:Neeraj gahlawat</h5>
+		</div>	
+	</div>
+</div>
+<div class="footer_up_bg" style="border: 1em;background-color: #ef3434;">
+	<div class="container" style="border: 1em;background-color: #ef3434;">
+		<div class="col-md-3">
+			<h3>LEARN TUTORIALS</h3>
+			<ul style="list-style-type:none">
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+            </ul>
+		</div>
+		<div class="col-md-3">
+			<h3>OUR SERVICES</h3>
+			<ul style="list-style-type:none;">
+                <li style="margin: 1em;"><a href="#">Website Development</a></li>
+                <li><a href="#">Android Development</a></li>
+                <li><a href="#">Website Designing</a></li>
+                <li><a href="#">Digital Marketing</a></li>
+                <li><a href="#">Summer Training</a></li>
+                <li><a href="#">Industrial Training</a></li>
+               	<li><a href="#">College Campus Training</a></li>
+            </ul>
+		</div>
+		<div class="col-md-3">
+			<h3>OUR WEBSITES</h3>
+			<ul style="list-style-type:none">
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+            </ul>
+		</div>
+		<div class="col-md-3">
+			<h3>CONTACT US</h3>
+			<h4>Contact No: 9210842216</h4>
+			
+		</div>
+	</div>
+</div>
 <div class="footer_bg"><!-- start footer -->
 	<div class="container">
 		<div class="row  footer">
 			<div class="copy text-center">
-				<p class="link"><span>&#169; All rights reserved | Design by&nbsp;<a href="http://w3layouts.com/"> W3Layouts</a></span></p>
+				<p class="link"><span>&#169; All rights reserved | Design by&nbsp;<a href=""> Challenge Java</a></span></p>
 			</div>
 		</div>
 	</div>

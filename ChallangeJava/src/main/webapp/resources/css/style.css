@@ -685,6 +685,7 @@ body {
 	border:1px solid #ff5454;
 }
 .form-control{
+	width: 55em;
 	box-shadow: none;
 	border: 1px solid #ECECEC;
 	-webkit-transition: all 0.3s ease-in-out;
