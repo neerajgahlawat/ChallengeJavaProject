@@ -1,5 +1,6 @@
 package com.app.challenge.java.DAO;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -8,9 +9,10 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import com.app.challenge.java.DTO.NotifyDTO;
+import com.app.challenge.java.DTO.UserDTO;
 
 @Repository("challengeDAO")
-public class ChallengeDAOImpl extends AbstractDao implements ChallengeDAO {
+public class ChallengeDAOImpl extends AbstractDao<Integer, NotifyDTO> implements ChallengeDAO {
 
 	private final static Logger logger = Logger
 			.getLogger(ChallengeDAOImpl.class);
@@ -31,6 +33,8 @@ public class ChallengeDAOImpl extends AbstractDao implements ChallengeDAO {
 		return query.list();
 		
 	}
+
+	
 	
 	
 

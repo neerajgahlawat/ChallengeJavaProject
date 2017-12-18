@@ -77,7 +77,32 @@
 <div class="main_bg"><!-- start main -->
 	<div class="container">
 		<div class="main row">
-			<iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.in/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Lighthouse+Point,+FL,+United+States&amp;aq=4&amp;oq=light&amp;sll=26.275636,-80.087265&amp;sspn=0.04941,0.104628&amp;ie=UTF8&amp;hq=&amp;hnear=Lighthouse+Point,+Broward,+Florida,+United+States&amp;t=m&amp;z=14&amp;ll=26.275636,-80.087265&amp;output=embed"></iframe><br><small><a href="https://maps.google.co.in/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Lighthouse+Point,+FL,+United+States&amp;aq=4&amp;oq=light&amp;sll=26.275636,-80.087265&amp;sspn=0.04941,0.104628&amp;ie=UTF8&amp;hq=&amp;hnear=Lighthouse+Point,+Broward,+Florida,+United+States&amp;t=m&amp;z=14&amp;ll=26.275636,-80.087265" style="font-family: 'Open Sans', sans-serif;color:#555555;text-shadow:0 1px 0 #ffffff; text-align:left;font-size:12px;padding: 5px;">View Larger Map</a></small>
+			<!-- <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.in/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Lighthouse+Point,+FL,+United+States&amp;aq=4&amp;oq=light&amp;sll=26.275636,-80.087265&amp;sspn=0.04941,0.104628&amp;ie=UTF8&amp;hq=&amp;hnear=Lighthouse+Point,+Broward,+Florida,+United+States&amp;t=m&amp;z=14&amp;ll=26.275636,-80.087265&amp;output=embed"></iframe><br><small><a href="https://maps.google.co.in/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Lighthouse+Point,+FL,+United+States&amp;aq=4&amp;oq=light&amp;sll=26.275636,-80.087265&amp;sspn=0.04941,0.104628&amp;ie=UTF8&amp;hq=&amp;hnear=Lighthouse+Point,+Broward,+Florida,+United+States&amp;t=m&amp;z=14&amp;ll=26.275636,-80.087265" style="font-family: 'Open Sans', sans-serif;color:#555555;text-shadow:0 1px 0 #ffffff; text-align:left;font-size:12px;padding: 5px;">View Larger Map</a></small> -->
+			<div style="width: 32em;float: right;">
+		<h4 class="text-center">NOTIFY US</h4>
+			<c:if test="${SUCCESS_MESSAGE != null}">
+ 				 <div id="status_message" class="alert alert-success">${SUCCESS_MESSAGE}</div>
+			</c:if> 
+			<form:form action="${contextPath}/notifyme" modelAttribute="notify" method="post">
+				<div class="form-group">
+					<form:label path="firstName" class="required">FIRST NAME</form:label>
+					<form:input path="firstName" id="fname" name="firstname" placeholder="Your name.." required="required" style="height: 4em;width: 32em;"/>
+				</div>
+				<div class="form-group">		
+					<form:label path="lastName" class="required">LAST NAME</form:label></td>
+					 <form:input path="lastName"  id="lname" name="lastname" placeholder="Your last name.." required="required"  style="height: 4em;width: 32em;"/>
+				</div>	
+				<div class="form-group">	
+					<form:label path="email" class="required">EMAIL</form:label></td>
+					<form:input path="email" id="email" name="email" placeholder="Your Email.." required="required"  style="height: 4em;width: 32em;"/>
+				</div>
+				<div class="form-group">		
+					<form:label path="phone" class="required">PHONE NO:</form:label></td>
+					<form:input path="phone" id="phone" name="phone" placeholder="Your phone No.." required="required"  style="height: 4em;width: 32em;"/>
+				</div>		
+						<form:button class="btn btn-success btn-block" name="notifyme" value="NOTIFY ME">NOTIFY ME</form:button>			
+				 </form:form>
+		</div>
 		</div>
 	</div>
 </div><!-- end main -->
