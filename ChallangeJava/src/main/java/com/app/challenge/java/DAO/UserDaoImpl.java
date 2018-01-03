@@ -5,10 +5,12 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.cfg.CreateKeySecondPass;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import com.app.challenge.java.DTO.PasswordResetTokenDTO;
 import com.app.challenge.java.DTO.UserDTO;
 import com.app.challenge.java.controller.ChallangeController;
 
@@ -73,6 +75,22 @@ public class UserDaoImpl extends AbstractDao<Integer, UserDTO> implements UserDa
 		Integer identification = 1;
 		logger.info("user sign up"+identification);
 		return identification;
+	}
+
+	@Override
+	public UserDTO findUserByEmail(String userEmail) {
+		UserDTO user = null;
+		try{
+		Criteria criteria = createEntityCriteria();
+		criteria.add(Restrictions.eq("email", userEmail));
+		user = (UserDTO)criteria.uniqueResult();
+		if(user!=null){
+			Hibernate.initialize(user.getUserProfiles());
+		}
+		}catch(Exception exception){
+			System.out.println(exception);
+		}
+		return user;
 	}
 
 }

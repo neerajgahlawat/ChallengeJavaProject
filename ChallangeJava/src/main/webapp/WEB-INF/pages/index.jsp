@@ -6,10 +6,10 @@
 <title>Challenge Java | Home</title>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!-- Bootstrap -->
-<link href="<c:url value='/resources/css/bootstrap.min.css' />"
+<%-- <link href="<c:url value='/resources/css/bootstrap.min.css' />"
 	rel='stylesheet' type='text/css' />
 <link href="<c:url value='/resources/css/bootstrap.css' />"
-	rel='stylesheet' type='text/css' />
+	rel='stylesheet' type='text/css' /> --%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="application/x-javascript">
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
@@ -18,8 +18,8 @@
      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-<link href="<c:url value='/resources/css/style.css' />" rel="stylesheet"
-	type="text/css" media="all" />
+<%-- <link href="<c:url value='/resources/css/style.css' />" rel="stylesheet"
+	type="text/css" media="all" /> --%>
 <!-- start plugins -->
 <script type="text/javascript"
 	src="<c:url value='/resources/js/jquery.min.js' />"></script>
@@ -139,6 +139,7 @@ ul li,ol li {
 					</h1>
 				</div>
 				<div class="navbar-right">
+				
 					<h4>
 						<span class="label label-info">contact for free demo class</span><a
 							href="<c:url value='/askQuestion' />"><button
@@ -149,6 +150,21 @@ ul li,ol li {
 						<span class="label label-success">Phone : +91-9210842216 ,
 							Email : challengejava@gmail.com</span>
 					</h4>
+					<c:choose>
+						<c:when test="${(not empty user) && (user != 'anonymousUser')}">
+							<div class="h_search navbar-right">
+							<form>
+								<!-- <input type="text" class="text" value="Enter text here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter text here';}">
+					<input type="submit" value="search"> -->
+								Dear <strong>${user}</strong>, Welcome to Admin Page. <a
+									href="<c:url value="/logout" />">Logout</a>
+							</form>
+						</div>
+						</c:when>
+						<c:otherwise>
+							<h4><a href="<c:url value='/user/login/home' />">Log In</a></h4>
+						</c:otherwise>
+					</c:choose>
 					<c:if test="${param.logout != null}">
 						<div class="alert alert-success">
 							<p>You have been logged out successfully.</p>
@@ -203,7 +219,7 @@ ul li,ol li {
 		<!-- start slider -->
 		<div class="container">
 			<div style="width: 50em; float: right;">
-				<h4 class="text-center">SIGN UP</h4>
+				<h4 class="text-center">JOIN US</h4>
 
 				<form:form action="${contextPath}/user/signUp"
 					modelAttribute="signUp" method="post" id="identicalForm"
@@ -214,7 +230,7 @@ ul li,ol li {
 					</c:if>
 					<div class="form-group">
 						<form:label path="ssoId" class="col-xs-3 control-label">USER NAME</form:label><span id="userExists"></span>
-						<div class="col-xs-7">
+						<div class="col-xs-4">
 							<form:input class="form-control" path="ssoId" name="userName"
 								placeholder="User name.." required="required" id="ssoId"/><a id="verify">Verify User</a>
 						</div>
@@ -321,6 +337,29 @@ ul li,ol li {
 		</div>
 	</div>
 	<!-- end main -->
+	<div class="faq_main">
+		<div class="container">
+			<div class="col_md_5">
+				<c:if test="${not empty ALL_ASK_QUESTIONS}">
+				<span class="lead">List of Questions </span>
+					
+						<c:forEach items="${ALL_ASK_QUESTIONS}" var="askQuestion"
+							varStatus="status">
+							<div class="well">
+								<span>${status.count}</span>
+								<div><b style="font-size: 2em;"><a href="<c:url value='/user/question_${askQuestion.userQuestionId}' />">${askQuestion.question_title}</a></b><br>
+									<b>
+										<c:forEach var="obj" items="${askQuestion.userQuestionTags}">
+       										 &nbsp;&nbsp;<span style="background-color: #baf4eb">&nbsp;${obj}&nbsp;</span>
+    									</c:forEach>
+									</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${askQuestion.askedAgo}&nbsp;${askQuestion.askedBy}
+								</div>
+							</div>
+						</c:forEach>
+				</c:if>
+			</div>
+		</div>
+	</div>
 	<div class="main_btm">
 		<!-- start main_btm -->
 		<div class="container">

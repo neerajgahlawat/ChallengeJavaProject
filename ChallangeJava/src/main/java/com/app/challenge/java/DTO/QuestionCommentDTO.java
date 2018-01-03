@@ -34,7 +34,7 @@ public class QuestionCommentDTO {
 	@JoinColumn(name = "USER_QUESTION_ID", nullable = false)
 	private UserQuestionDTO userQuestion = new UserQuestionDTO();
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID", nullable = false)
 	private UserDTO user = new UserDTO();
 

@@ -1,18 +1,34 @@
 package com.app.challenge.java.service;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.challenge.java.DAO.ChallengeDAO;
 import com.app.challenge.java.DAO.UserDao;
 import com.app.challenge.java.DAO.UserProfileDao;
+import com.app.challenge.java.DTO.PasswordResetTokenDTO;
 import com.app.challenge.java.DTO.UserDTO;
 import com.app.challenge.java.DTO.UserProfileDTO;
+import com.app.challenge.java.controller.ChallangeController;
 import com.app.challenge.java.model.SignUp;
 import com.app.challenge.java.util.UserProfileType;
 
@@ -21,15 +37,27 @@ import com.app.challenge.java.util.UserProfileType;
 @Service("userService")
 @Transactional
 public class UserServiceImpl implements UserService{
+	
+	private final static Logger logger = Logger
+			.getLogger(UserServiceImpl.class);
 
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private ChallengeDAO challengeDAO; 
 	
 	@Autowired
 	private UserProfileDao userProfileDao;
 
 	@Autowired
     private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private MailService mailService;
+	
+	@Autowired
+	JavaMailSender mailSender;
 	
 	public UserDTO findById(int id) {
 		return userDao.findById(id);
@@ -117,5 +145,69 @@ public class UserServiceImpl implements UserService{
 		}
 		return isExists;
 	}
+
+	@Override
+	@Transactional
+	public String findUserByEmail(String userEmail, HttpServletRequest request) {
+		String response = null;
+		UserDTO userDTO = userDao.findUserByEmail(userEmail);
+		if(userDTO != null){
+			String token = UUID.randomUUID().toString();
+			 PasswordResetTokenDTO myToken = new PasswordResetTokenDTO();
+			 myToken.setToken(token);
+			 myToken.setUserDto(userDTO);
+			 challengeDAO.setResetTokenForUser(myToken);
+			 mailSender.send(constructResetTokenEmail(request.getRequestURI(), 
+				      request.getLocale(), token, userDTO));
+			 response = "link has been sent to reset your password on your email address";
+		}else{
+			logger.info("User not found by email to reset password!");
+			response = "User not found by email to reset password!";
+		}
+		return response;
+	}
 	
+	private SimpleMailMessage constructResetTokenEmail(String contextPath,
+			Locale locale, String token, UserDTO userDTO) {
+		String url = contextPath + "/user/changePassword?id=" + userDTO.getId()
+				+ "&token=" + token;
+		/*
+		 * String message = messages.getMessage("message.resetPassword", null,
+		 * locale);
+		 */
+		String message = "reset Password";
+		return constructEmail("Reset Password", message + " \r\n" + url,
+				userDTO);
+	}
+
+	private SimpleMailMessage constructEmail(String subject, String body,
+			UserDTO user) {
+		SimpleMailMessage email = new SimpleMailMessage();
+		email.setSubject(subject);
+		email.setText(body);
+		email.setTo(user.getEmail());
+		email.setFrom("gahlawatneeraj3@gmail.com");
+		return email;
+	}
+	
+	@Override
+	public String validatePasswordResetToken(long id, String token) {
+	    PasswordResetTokenDTO passToken = 
+	    		challengeDAO.findByToken(token);
+	    if ((passToken == null) || (passToken.getUserDto().getId() != id)) {
+	        return "invalidToken";
+	    }
+	 
+	    Calendar cal = Calendar.getInstance();
+	    if ((passToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
+	        return "expired";
+	    }
+	 
+	    UserDTO userDTO = passToken.getUserDto();
+	    Authentication auth = new UsernamePasswordAuthenticationToken(
+	    		userDTO, null, Arrays.asList(
+	      new SimpleGrantedAuthority("CHANGE_PASSWORD_PRIVILEGE")));
+	    SecurityContextHolder.getContext().setAuthentication(auth);
+	    return null;
+	}
 }

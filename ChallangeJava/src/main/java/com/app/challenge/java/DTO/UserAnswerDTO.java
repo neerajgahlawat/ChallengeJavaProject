@@ -1,7 +1,9 @@
 package com.app.challenge.java.DTO;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -38,9 +40,9 @@ public class UserAnswerDTO {
 	private UserQuestionDTO userQuestion = new UserQuestionDTO();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAnswer")
-	private Set<AnswerCommentDTO> answerComments = new HashSet<AnswerCommentDTO>();
+	private List<AnswerCommentDTO> answerComments = new ArrayList<AnswerCommentDTO>();
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID", nullable = false)
 	private UserDTO user = new UserDTO();
 
@@ -84,11 +86,11 @@ public class UserAnswerDTO {
 		this.userQuestion = userQuestion;
 	}
 
-	public Set<AnswerCommentDTO> getAnswerComments() {
+	public List<AnswerCommentDTO> getAnswerComments() {
 		return answerComments;
 	}
 
-	public void setAnswerComments(Set<AnswerCommentDTO> answerComments) {
+	public void setAnswerComments(List<AnswerCommentDTO> answerComments) {
 		this.answerComments = answerComments;
 	}
 

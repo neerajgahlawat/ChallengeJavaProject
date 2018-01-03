@@ -2,6 +2,7 @@ package com.app.challenge.java.DAO;
 
 import java.util.List;
 
+import com.app.challenge.java.DTO.PasswordResetTokenDTO;
 import com.app.challenge.java.DTO.UserDTO;
 
 public interface UserDao {
@@ -17,5 +18,7 @@ public interface UserDao {
 	List<UserDTO> findAllUsers();
 	
 	public Integer setUserSignUp(UserDTO userDTO);
+
+	UserDTO findUserByEmail(String userEmail);
 
 }

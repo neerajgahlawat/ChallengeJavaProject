@@ -52,7 +52,7 @@ public class UserDTO {
 	@Column(name = "STATE", nullable = false)
 	private String state = State.ACTIVE.getState();
 
-	@ManyToMany(fetch = FetchType.EAGER ,cascade={CascadeType.MERGE, CascadeType.PERSIST})
+	@ManyToMany(fetch = FetchType.EAGER ,cascade={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.ALL})
 	@JoinTable(name = "APP_USER_USER_PROFILE", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "USER_PROFILE_ID") })
 	private Set<UserProfileDTO> userProfiles = new HashSet<UserProfileDTO>();
 	

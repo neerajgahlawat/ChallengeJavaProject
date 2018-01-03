@@ -77,7 +77,7 @@
 	<div class="clearfix"></div>
 </div>
 </div>
-<div class="main_bg">
+<%-- <div class="main_bg">
 	<div class="container" style="margin-top: 1em;">
 		<div class="col-md-8">
 			<form:form action="${contextPath}/user/askQuestion" method="post" modelAttribute="askQuestion" class="form-horizontal">
@@ -102,42 +102,8 @@
 						<form:button class="btn btn-success" name="notifyme" value="Post Your Question">Post Your Question</form:button>			
 				 </form:form>
 		</div>
-		<div class="col-md-4" style="float: right;overflow: hidden;">
-			<div style="margin-bottom: 1em;background-color: #FCC9B9;padding: 10px; position: fixed;"> 
-				<h3>How to Ask</h3>
-				<h4><b>Is your question about programming?</b></h4><br>
-				<h5>We prefer questions that can be answered, not just discussed.</h5><br>
-				<h5>Provide details. Share your research.</h5><br>
-				<h5>If your question is about this website, ask it on meta instead.</h5><br>
-			</div>
 		</div>
-		</div>
-	</div>	
-	<div class="main_bg">
-		<div  class="container">
-				<div class="col_md_5">
-				<c:if test="${not empty USER_ASK_QUESTIONS}">
-						<span class="lead">List of Questions </span>
-
-						<c:forEach items="${USER_ASK_QUESTIONS}" var="askQuestion"
-							varStatus="status">
-							<div class="well">
-								<span>${status.count}</span>
-								<div>
-									<b style="font-size: 2em;"><a href="<c:url value='/user/question_${askQuestion.userQuestionId}' />">${askQuestion.question_title}</a></b><br>
-									<b> <c:forEach var="obj" items="${askQuestion.userQuestionTags}">
-       										 &nbsp;&nbsp;<span style="background-color: #baf4eb">&nbsp;${obj}&nbsp;</span>
-										</c:forEach>
-									</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									${askQuestion.askedAgo}&nbsp;${askQuestion.askedBy}
-								</div>
-							</div>
-						</c:forEach>
-					</c:if>
-			</div>
-		</div>
-		<div class="col-md-4"></div>
-	</div>
+	</div>	 --%>
 <div class="footer_bg"><!-- start footer -->
 	<div class="container">
 		<div class="row  footer">

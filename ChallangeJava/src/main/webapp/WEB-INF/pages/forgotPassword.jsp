@@ -3,18 +3,18 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Learner a education bootstrap Website Template | About :: w3layouts</title>
+<title>Forgot Password</title>
 <!-- Bootstrap -->
-<link href="<c:url value='/resources/css/bootstrap.min.css' />" rel='stylesheet' type='text/css' />
+<%-- <link href="<c:url value='/resources/css/bootstrap.min.css' />" rel='stylesheet' type='text/css' />
 <link href="<c:url value='/resources/css/bootstrap.css' />" rel='stylesheet' type='text/css' />
-<link href="<c:url value='/resources/css/display.css' />" rel='stylesheet' type='text/css' />
+<link href="<c:url value='/resources/css/display.css' />" rel='stylesheet' type='text/css' /> --%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
  <!--[if lt IE 9]>
      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-<link href="<c:url value='/resources/css/style.css' />" rel="stylesheet" type="text/css" media="all" />
+<%-- <link href="<c:url value='/resources/css/style.css' />" rel="stylesheet" type="text/css" media="all" /> --%>
 <!-- start plugins -->
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js' />"></script>
 <script type="text/javascript" src="<c:url value='/resources/js/bootstrap.js' />"></script>
@@ -77,67 +77,48 @@
 	<div class="clearfix"></div>
 </div>
 </div>
-<div class="main_bg">
-	<div class="container" style="margin-top: 1em;">
-		<div class="col-md-8">
-			<form:form action="${contextPath}/user/askQuestion" method="post" modelAttribute="askQuestion" class="form-horizontal">
-				<div class="form-group required">
-					<form:label path="question_title" class="control-label col-sm-2" for="inputlg" >Title :</form:label>
-					<div class="col-sm-10">
-						<form:input path="question_title" class="form-control input-lg" id="title" name="title" placeholder="what's your programming question? Be specific" required="required" size="30%" />
-					</div>
-				</div>
-				<div class="form-group required">		
-					<form:label path="question_desc" class="control-label col-sm-2" for="inputlg"></form:label>
-					<div class="col-sm-10">
-						 <form:textarea path="question_desc"  class="form-control input-lg" id="lname" name="lastname" placeholder="" required="required" cssStyle=" height: 15em;"/>
-					</div>
-				</div>
-				<div class="form-group required">		
-					<form:label path="question_tag" class="control-label col-sm-2" for="inputlg">Tag :</form:label>
-					<div class="col-sm-10">
-						 <form:input path="question_tag"  class="form-control input-lg" id="tag" name="tag" placeholder="at least one tag.." required="required" size="30%"></form:input>
-					</div>
-				</div>		
-						<form:button class="btn btn-success" name="notifyme" value="Post Your Question">Post Your Question</form:button>			
-				 </form:form>
-		</div>
-		<div class="col-md-4" style="float: right;overflow: hidden;">
-			<div style="margin-bottom: 1em;background-color: #FCC9B9;padding: 10px; position: fixed;"> 
-				<h3>How to Ask</h3>
-				<h4><b>Is your question about programming?</b></h4><br>
-				<h5>We prefer questions that can be answered, not just discussed.</h5><br>
-				<h5>Provide details. Share your research.</h5><br>
-				<h5>If your question is about this website, ask it on meta instead.</h5><br>
-			</div>
-		</div>
-		</div>
-	</div>	
-	<div class="main_bg">
-		<div  class="container">
-				<div class="col_md_5">
-				<c:if test="${not empty USER_ASK_QUESTIONS}">
-						<span class="lead">List of Questions </span>
+<div class="reset_bg">
+	<div class="container">
+		<c:if test="${not empty RESET_PASS_MSG}">
+			<div id="status_message" class="alert alert-success">${RESET_PASS_MSG}</div>
+		</c:if>
+			<form action="${contextPath}/user/resetPassword" id="identicalForm" class="form-horizontal">
 
-						<c:forEach items="${USER_ASK_QUESTIONS}" var="askQuestion"
-							varStatus="status">
-							<div class="well">
-								<span>${status.count}</span>
-								<div>
-									<b style="font-size: 2em;"><a href="<c:url value='/user/question_${askQuestion.userQuestionId}' />">${askQuestion.question_title}</a></b><br>
-									<b> <c:forEach var="obj" items="${askQuestion.userQuestionTags}">
-       										 &nbsp;&nbsp;<span style="background-color: #baf4eb">&nbsp;${obj}&nbsp;</span>
-										</c:forEach>
-									</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									${askQuestion.askedAgo}&nbsp;${askQuestion.askedBy}
-								</div>
-							</div>
-						</c:forEach>
-					</c:if>
-			</div>
-		</div>
-		<div class="col-md-4"></div>
-	</div>
+				<div class="form-group">
+					<label class="col-xs-3 control-label">EMAIL ID</label>
+					<div class="col-xs-7">
+						<input class="form-control" name="email"
+							placeholder="Your Email.." required="required" id="email" />
+					</div>
+				</div>
+				<button class="btn btn-success" name="reset" value="reset">Reset</button>
+			</form>
+ 
+<!-- <script src="jquery.min.js"></script>
+<script th:inline="javascript">
+var serverContext = [[@{/}]];
+function resetPass(){
+    var email = $("#email").val();
+    $.post(serverContext + "user/resetPassword",{email: email} ,
+      function(data){
+          window.location.href = 
+           serverContext + "login?message=" + data.message;
+    })
+    .fail(function(data) {
+        if(data.responseJSON.error.indexOf("MailError") > -1)
+        {
+            window.location.href = serverContext + "emailError.html";
+        }
+        else{
+            window.location.href = 
+              serverContext + "login?message=" + data.responseJSON.message;
+        }
+    });
+}
+ 
+</script> -->
+</div>
+</div>
 <div class="footer_bg"><!-- start footer -->
 	<div class="container">
 		<div class="row  footer">

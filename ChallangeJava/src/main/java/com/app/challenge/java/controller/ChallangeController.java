@@ -3,6 +3,11 @@ package com.app.challenge.java.controller;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationTrustResolver;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,7 +20,6 @@ import com.app.challenge.java.model.Notify;
 import com.app.challenge.java.model.SignUp;
 import com.app.challenge.java.service.ChallengeService;
 import com.app.challenge.java.service.EmailService;
-import com.app.challenge.java.service.UserService;
 
 @Controller
 public class ChallangeController {
@@ -30,10 +34,32 @@ public class ChallangeController {
 	@Autowired
 	@Qualifier("emailService")
 	EmailService emailService;
+	
+	@Autowired
+	PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices;
+
+	@Autowired
+	AuthenticationTrustResolver authenticationTrustResolver;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getData(Model model) {
 		model.addAttribute("signUp", new SignUp());
+		model.addAttribute("ALL_ASK_QUESTIONS", challengeService.getAllAskedQuestionList());
+		String loginUser = getPrincipal();
+		if(loginUser != null && !loginUser.equals("anonymousUser")){
+			model.addAttribute("user", loginUser);
+		}
+		return "index";
+	}
+	
+	@RequestMapping(value = "/user/login/home", method = RequestMethod.GET)
+	public String getLoginUserOnHome(Model model) {
+		model.addAttribute("signUp", new SignUp());
+		model.addAttribute("ALL_ASK_QUESTIONS", challengeService.getAllAskedQuestionList());
+		String loginUser = getPrincipal();
+		if(loginUser != null && !loginUser.equals("anonymousUser")){
+			model.addAttribute("user", loginUser);
+		}
 		return "index";
 	}
 
@@ -99,10 +125,32 @@ public class ChallangeController {
 		}
 		logger.info("-------------Notify Me End-----------------");
 		return "contact";
-
 	}
 	
-	
-	
-	
+	/**
+	 * This method returns the principal[user-name] of logged-in user.
+	 */
+	private String getPrincipal() {
+		String userName = null;
+		Object principal = SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+
+		if (principal instanceof UserDetails) {
+			userName = ((UserDetails) principal).getUsername();
+		} else {
+			userName = principal.toString();
+		}
+		return userName;
+	}
+
+	/**
+	 * This method returns true if users is already authenticated [logged-in],
+	 * else false.
+	 */
+	private boolean isCurrentAuthenticationAnonymous() {
+		final Authentication authentication = SecurityContextHolder
+				.getContext().getAuthentication();
+		return authenticationTrustResolver.isAnonymous(authentication);
+	}
+
 }

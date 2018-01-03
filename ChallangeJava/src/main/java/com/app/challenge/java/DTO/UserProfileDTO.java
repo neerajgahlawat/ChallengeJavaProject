@@ -3,6 +3,7 @@ package com.app.challenge.java.DTO;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ public class UserProfileDTO {
 	    @Column(name="TYPE", length=15, unique=true, nullable=false)
 	    private String type = UserProfileType.USER.getUserProfileType();
 	    
-	    @ManyToMany(mappedBy="userProfiles")
+	    @ManyToMany(mappedBy="userProfiles", cascade = CascadeType.ALL)
 	    private Set<UserDTO> users = new HashSet<UserDTO>();
 
 		public int getId() {
