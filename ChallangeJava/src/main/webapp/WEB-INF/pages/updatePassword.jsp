@@ -79,51 +79,39 @@
 </div>
 <div class="reset_bg">
 	<div class="container">
-		<c:if test="${not empty RESET_PASS_MSG}">
-			<div id="status_message" class="alert alert-success">${RESET_PASS_MSG}</div>
-		</c:if>
-			<form action="${contextPath}/user/resetPassword" id="identicalForm" class="form-horizontal">
-				<h2>Forgot Password</h2>
+			
+			<c:if test="${not empty PASSWORD_UPDATED}">
+						<div class="alert alert-danger">
+							<p>${PASSWORD_UPDATED}</p>
+						</div>
+			</c:if>
+			<c:if test="${empty PASSWORD_UPDATED}">
+						<form:form action="${contextPath}/user/updatePassword" id="identicalForm" modelAttribute="updatePassword" class="form-horizontal" method="post">
+				<h2>Reset Password</h2>
 				<div class="form-group">
-					<label class="col-xs-3 control-label">EMAIL ID</label>
+					<form:label class="col-xs-3 control-label" path="pass"></form:label>
 					<div class="col-xs-7">
-						<input class="form-control" name="email"
-							placeholder="Your Email.." required="required" id="email" />
+						<form:input class="form-control" name="pass" path="pass" type="password"
+							placeholder="password" required="required" id="pass" />
 					</div>
 				</div>
-				<button class="btn btn-success" name="reset" value="reset">Reset</button>
-			</form>
- 
-<!-- <script src="jquery.min.js"></script>
-<script th:inline="javascript">
-var serverContext = [[@{/}]];
-function resetPass(){
-    var email = $("#email").val();
-    $.post(serverContext + "user/resetPassword",{email: email} ,
-      function(data){
-          window.location.href = 
-           serverContext + "login?message=" + data.message;
-    })
-    .fail(function(data) {
-        if(data.responseJSON.error.indexOf("MailError") > -1)
-        {
-            window.location.href = serverContext + "emailError.html";
-        }
-        else{
-            window.location.href = 
-              serverContext + "login?message=" + data.responseJSON.message;
-        }
-    });
-}
- 
-</script> -->
+				<div class="form-group">
+					<form:label class="col-xs-3 control-label" path="confirmPass"></form:label>
+					<div class="col-xs-7">
+						<form:input class="form-control" name="confirmPass" path="confirmPass" type="password"
+							placeholder="Confirm Password" required="required" id="confirmPass" />
+					</div>
+				</div>
+				<button class="btn btn-success" name="update" value="update">Update</button>
+			</form:form>
+			</c:if>
 </div>
 </div>
 <div class="footer_bg"><!-- start footer -->
 	<div class="container">
 		<div class="row  footer">
 			<div class="copy text-center">
-				<p class="link"><span>&#169; All rights reserved | Design by&nbsp;<a href="http://w3layouts.com/"> W3Layouts</a></span></p>
+				<p class="link"><span>&#169; All rights reserved | Design by&nbsp;<a href=""> Neeraj gahlawat</a></span></p>
 			</div>
 		</div>
 	</div>

@@ -1,5 +1,6 @@
 package com.app.challenge.java.DTO;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +22,7 @@ import com.app.challenge.java.util.State;
 
 @Entity
 @Table(name = "APP_USER")
-public class UserDTO {
+public class UserDTO implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

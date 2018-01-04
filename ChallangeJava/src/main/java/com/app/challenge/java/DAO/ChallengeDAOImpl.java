@@ -3,6 +3,8 @@ package com.app.challenge.java.DAO;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import com.app.challenge.java.DTO.NotifyDTO;
 import com.app.challenge.java.DTO.PasswordResetTokenDTO;
+import com.app.challenge.java.DTO.UserDTO;
 import com.app.challenge.java.DTO.UserQuestionTagDTO;
 
 @Repository("challengeDAO")
@@ -75,7 +78,7 @@ public class ChallengeDAOImpl implements ChallengeDAO {
 	public void setResetTokenForUser(PasswordResetTokenDTO myToken) {
 		try{
 		Session session = sessionFactory.openSession();
-		session.persist(myToken);
+		session.saveOrUpdate(myToken);
 		session.flush();
 		session.clear();
 		session.close();
@@ -100,6 +103,60 @@ public class ChallengeDAOImpl implements ChallengeDAO {
 			System.out.println(exception);
 		}
 		return passwordResetTokenDTO;
+	}
+
+	@Override
+	public PasswordResetTokenDTO getResetTokenByUserId(int id) {
+		String strQuery = "select resetToken from PasswordResetTokenDTO resetToken where resetToken.userDto.id = :id";
+		List<PasswordResetTokenDTO> dtos = null;
+		PasswordResetTokenDTO dto = null;
+		try{
+			Session session = sessionFactory.openSession();
+			Query query = session.createQuery(strQuery);
+			query.setParameter("id", id);
+			dtos =(List<PasswordResetTokenDTO>) query.list();
+			session.flush();
+			session.clear();
+			session.close();
+		}catch(Exception exception){
+			System.out.println(exception);
+		}
+		if(dtos != null && !dtos.isEmpty()){
+			dto =  dtos.get(0);
+		}
+		return dto;
+	}
+
+	@Override
+	public void updateUserPassword(UserDTO userDTO) {
+		try{
+			Session session = sessionFactory.getCurrentSession();
+			session.saveOrUpdate(userDTO);
+			session.flush();
+			session.clear();
+		}catch(Exception exception){
+			System.out.println(exception);
+		}
+		
+	}
+
+	@Override
+	public boolean deleteResetTokenForUser(Long userId) {
+		boolean status = true;
+		String queryStr = "delete PasswordResetTokenDTO resetToken where resetToken.userDto.id = :id ";
+		try{
+			Session session = sessionFactory.getCurrentSession();
+			Query query = session.createQuery(queryStr);
+			query.setParameter("id", userId.intValue());
+			query.executeUpdate();
+			session.flush();
+			session.clear();
+			session.close();
+		}catch(Exception exception){
+			status = false;
+			System.out.println(exception);
+		}
+		return status;
 	}
 
 }

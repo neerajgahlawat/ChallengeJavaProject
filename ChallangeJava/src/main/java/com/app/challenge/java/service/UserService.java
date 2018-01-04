@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.app.challenge.java.DTO.UserDTO;
 import com.app.challenge.java.model.SignUp;
+import com.app.challenge.java.model.UpdatePassword;
 import com.app.challenge.java.model.User;
 
 public interface UserService {
@@ -31,5 +32,7 @@ public interface UserService {
 	String findUserByEmail(String userEmail, HttpServletRequest request);
 
 	String validatePasswordResetToken(long id, String token);
+
+	String updateUserPassword(UpdatePassword updatePassword, Long userId);
 
 }

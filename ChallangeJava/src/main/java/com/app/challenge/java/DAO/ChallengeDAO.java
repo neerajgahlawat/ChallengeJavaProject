@@ -21,4 +21,10 @@ public interface ChallengeDAO {
 	public void setResetTokenForUser(PasswordResetTokenDTO myToken);
 
 	public PasswordResetTokenDTO findByToken(String token);
+
+	public PasswordResetTokenDTO getResetTokenByUserId(int id);
+
+	public void updateUserPassword(UserDTO userDTO);
+
+	public boolean deleteResetTokenForUser(Long userId);
 }

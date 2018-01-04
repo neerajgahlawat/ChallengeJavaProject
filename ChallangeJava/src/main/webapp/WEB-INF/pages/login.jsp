@@ -145,7 +145,7 @@
 						<div class="alert alert-danger">
 							<p>Invalid username and password.</p>
 						</div>
-					</c:if>
+					</c:if>				
 
 					<div class="form-group">
 						<label class="col-xs-3 control-label" for="username">USER

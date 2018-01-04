@@ -6,10 +6,10 @@
 <title>Challenge Java | Home</title>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!-- Bootstrap -->
-<%-- <link href="<c:url value='/resources/css/bootstrap.min.css' />"
+<link href="<c:url value='/resources/css/bootstrap.min.css' />"
 	rel='stylesheet' type='text/css' />
 <link href="<c:url value='/resources/css/bootstrap.css' />"
-	rel='stylesheet' type='text/css' /> --%>
+	rel='stylesheet' type='text/css' />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="application/x-javascript">
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
@@ -18,8 +18,8 @@
      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-<%-- <link href="<c:url value='/resources/css/style.css' />" rel="stylesheet"
-	type="text/css" media="all" /> --%>
+<link href="<c:url value='/resources/css/style.css' />" rel="stylesheet"
+	type="text/css" media="all" />
 <!-- start plugins -->
 <script type="text/javascript"
 	src="<c:url value='/resources/js/jquery.min.js' />"></script>
