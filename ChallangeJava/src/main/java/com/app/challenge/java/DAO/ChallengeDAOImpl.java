@@ -28,7 +28,6 @@ public class ChallengeDAOImpl implements ChallengeDAO {
 	private final static Logger logger = Logger
 			.getLogger(ChallengeDAOImpl.class);
 
-	@Override
 	public void setNotifyMe(NotifyDTO notifyDTO) {
 		notifyDTO.setCreatedDate(new Date());
 		Session session = sessionFactory.openSession();
@@ -39,7 +38,6 @@ public class ChallengeDAOImpl implements ChallengeDAO {
 		logger.info("primary key of notify ==");
 	}
 
-	@Override
 	public List<NotifyDTO> getNotifyMe(NotifyDTO notifyDTO) {
 		String strQuery = "from NotifyDTO notify where notify.email = :email or   notify.phone = :phone";
 		Session session = sessionFactory.openSession();
@@ -53,7 +51,7 @@ public class ChallengeDAOImpl implements ChallengeDAO {
 		return notifyDTOs;
 	}
 
-	@Override
+	
 	public UserQuestionTagDTO findByTag(String question_tag) {
 		Session session = sessionFactory.openSession();
 		Criteria crit = session.createCriteria(UserQuestionTagDTO.class);
@@ -74,7 +72,7 @@ public class ChallengeDAOImpl implements ChallengeDAO {
 		return userQuestionTagDTOs;
 	}
 
-	@Override
+	
 	public void setResetTokenForUser(PasswordResetTokenDTO myToken) {
 		try{
 		Session session = sessionFactory.openSession();
@@ -87,7 +85,7 @@ public class ChallengeDAOImpl implements ChallengeDAO {
 		}
 	}
 
-	@Override
+	
 	public PasswordResetTokenDTO findByToken(String token) {
 		PasswordResetTokenDTO passwordResetTokenDTO =  null;
 		try{
@@ -105,7 +103,7 @@ public class ChallengeDAOImpl implements ChallengeDAO {
 		return passwordResetTokenDTO;
 	}
 
-	@Override
+	
 	public PasswordResetTokenDTO getResetTokenByUserId(int id) {
 		String strQuery = "select resetToken from PasswordResetTokenDTO resetToken where resetToken.userDto.id = :id";
 		List<PasswordResetTokenDTO> dtos = null;
@@ -127,20 +125,18 @@ public class ChallengeDAOImpl implements ChallengeDAO {
 		return dto;
 	}
 
-	@Override
+	
 	public void updateUserPassword(UserDTO userDTO) {
 		try{
 			Session session = sessionFactory.getCurrentSession();
 			session.saveOrUpdate(userDTO);
-			session.flush();
-			session.clear();
 		}catch(Exception exception){
 			System.out.println(exception);
 		}
 		
 	}
 
-	@Override
+	
 	public boolean deleteResetTokenForUser(Long userId) {
 		boolean status = true;
 		String queryStr = "delete PasswordResetTokenDTO resetToken where resetToken.userDto.id = :id ";
@@ -149,9 +145,6 @@ public class ChallengeDAOImpl implements ChallengeDAO {
 			Query query = session.createQuery(queryStr);
 			query.setParameter("id", userId.intValue());
 			query.executeUpdate();
-			session.flush();
-			session.clear();
-			session.close();
 		}catch(Exception exception){
 			status = false;
 			System.out.println(exception);

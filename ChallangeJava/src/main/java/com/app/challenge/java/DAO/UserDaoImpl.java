@@ -67,7 +67,7 @@ public class UserDaoImpl extends AbstractDao<Integer, UserDTO> implements UserDa
 		delete(user);
 	}
 	
-	@Override
+	
 	public Integer setUserSignUp(UserDTO userDTO) {
 		userDTO.setCreatedDate(new Date());
 		userDTO.setModifiedDate(new Date());
@@ -77,7 +77,7 @@ public class UserDaoImpl extends AbstractDao<Integer, UserDTO> implements UserDa
 		return identification;
 	}
 
-	@Override
+	
 	public UserDTO findUserByEmail(String userEmail) {
 		UserDTO user = null;
 		try{

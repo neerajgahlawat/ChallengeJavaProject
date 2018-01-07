@@ -17,7 +17,7 @@ public class UserQuestionDAOImpl extends AbstractDao<Integer, UserQuestionDTO>
 	
 	
 
-	@Override
+	
 	public void saveAskQuestion(UserQuestionDTO userQuestionDTO) {
 		try {
 			userQuestionDTO.setCreated_Date(new Date());
@@ -28,7 +28,7 @@ public class UserQuestionDAOImpl extends AbstractDao<Integer, UserQuestionDTO>
 		}
 	}
 
-	@Override
+	
 	public List<UserQuestionDTO> getAskedQuestionList() {
 		List<UserQuestionDTO> userQuestionDTOs = null;
 		try{
@@ -42,7 +42,7 @@ public class UserQuestionDAOImpl extends AbstractDao<Integer, UserQuestionDTO>
 		return userQuestionDTOs;
 	}
 
-	@Override
+	
 	public List<UserQuestionDTO> getAllAskedQuestionList() {
 		List<UserQuestionDTO> userQuestionDTOs = null;
 		try{
@@ -54,12 +54,12 @@ public class UserQuestionDAOImpl extends AbstractDao<Integer, UserQuestionDTO>
 		return userQuestionDTOs;
 	}
 
-	@Override
+	
 	public UserQuestionDTO getQuestionById(String questionId) {
 		return (UserQuestionDTO) this.getSession().get(UserQuestionDTO.class, Long.parseLong(questionId));
 	}
 
-	@Override
+	
 	public void insertUserAnswer(UserAnswerDTO userAnswerDTO) {
 		try{
 		userAnswerDTO.setCreatedDate(new Date());
@@ -70,7 +70,7 @@ public class UserQuestionDAOImpl extends AbstractDao<Integer, UserQuestionDTO>
 		}
 	}
 
-	@Override
+	
 	public UserAnswerDTO getAnswerById(long answerId) {
 		return (UserAnswerDTO) this.getSession().get(UserAnswerDTO.class, answerId);
 		

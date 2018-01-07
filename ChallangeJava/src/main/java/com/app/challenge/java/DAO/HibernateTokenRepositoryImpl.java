@@ -21,7 +21,7 @@ public class HibernateTokenRepositoryImpl extends AbstractDao<String, Persistent
 	private final static Logger logger = Logger
 			.getLogger(HibernateTokenRepositoryImpl.class);
 
-	@Override
+	
 	public void createNewToken(PersistentRememberMeToken token) {
 		logger.info("Creating Token for user : {}"+ token.getUsername());
 		PersistentLoginDTO persistentLogin = new PersistentLoginDTO();
@@ -33,7 +33,7 @@ public class HibernateTokenRepositoryImpl extends AbstractDao<String, Persistent
 
 	}
 
-	@Override
+	
 	public PersistentRememberMeToken getTokenForSeries(String seriesId) {
 		logger.info("Fetch Token if any for seriesId : {}"+ seriesId);
 		try {
@@ -49,7 +49,7 @@ public class HibernateTokenRepositoryImpl extends AbstractDao<String, Persistent
 		}
 	}
 
-	@Override
+	
 	public void removeUserTokens(String username) {
 		logger.info("Removing Token if any for user : {}"+ username);
 		Criteria crit = createEntityCriteria();
@@ -62,7 +62,7 @@ public class HibernateTokenRepositoryImpl extends AbstractDao<String, Persistent
 
 	}
 
-	@Override
+	
 	public void updateToken(String seriesId, String tokenValue, Date lastUsed) {
 		logger.info("Updating Token for seriesId : {}"+ seriesId);
 		PersistentLoginDTO persistentLogin = getByKey(seriesId);

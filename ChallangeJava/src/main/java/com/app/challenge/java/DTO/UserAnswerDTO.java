@@ -26,7 +26,7 @@ public class UserAnswerDTO {
 	@Column(name = "USER_ANSWER_ID")
 	private long userAnswerId;
 
-	@Column(name = "USER_ANSWER", nullable = true)
+	@Column(name = "USER_ANSWER", nullable = true, length = 1000)
 	private String givenAnswer;
 
 	@Column(name = "CREATED_DATE", nullable = true)

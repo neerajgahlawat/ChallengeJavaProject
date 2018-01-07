@@ -15,7 +15,7 @@ public class UserAnswerDAOImpl extends AbstractDao<Integer, UserAnswerDTO>
 	private final static Logger logger = Logger
 			.getLogger(UserAnswerDAOImpl.class);
 
-	@Override
+	
 	public List<UserAnswerDTO> getAllAnswerByQuestionId(String questionId) {
 		List<UserAnswerDTO> userAnswerDTOs = null;
 		try {

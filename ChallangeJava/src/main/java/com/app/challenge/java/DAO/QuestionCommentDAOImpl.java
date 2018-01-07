@@ -17,7 +17,7 @@ public class QuestionCommentDAOImpl extends AbstractDao<Integer, QuestionComment
 	private final static Logger logger = Logger
 			.getLogger(QuestionCommentDAOImpl.class);
 
-	@Override
+	
 	public List<QuestionCommentDTO> getAllQuestionCommentById(String questionId) {
 		List<QuestionCommentDTO> questionCommentDTOs = null;
 		try {
@@ -31,7 +31,6 @@ public class QuestionCommentDAOImpl extends AbstractDao<Integer, QuestionComment
 		return questionCommentDTOs;
 	}
 
-	@Override
 	public void insertUserQuestionComment(QuestionCommentDTO questionCommentDTO) {
 		try{
 			questionCommentDTO.setCreatedDate(new Date());
@@ -42,7 +41,7 @@ public class QuestionCommentDAOImpl extends AbstractDao<Integer, QuestionComment
 			}
 	}
 
-	@Override
+	
 	public void insertUserAnswerComment(AnswerCommentDTO answerCommentDTO) {
 		try{
 			answerCommentDTO.setCreatedDate(new Date());
@@ -54,7 +53,7 @@ public class QuestionCommentDAOImpl extends AbstractDao<Integer, QuestionComment
 		
 	}
 
-	@Override
+	
 	public List<AnswerCommentDTO> getAllAnswerCommentById(long answerId) {
 		List<AnswerCommentDTO> answerCommentDTOs = null;
 		try {

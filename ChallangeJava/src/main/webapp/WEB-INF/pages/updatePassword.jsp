@@ -32,12 +32,18 @@
 			<h1><a href="index.html">Learner </a></h1>
 		</div>
 		<div class="h_search navbar-right">
-			<form>
-				<!-- <input type="text" class="text" value="Enter text here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter text here';}">
-				<input type="submit" value="search"> -->
-				  Dear <strong>${user}</strong>, Welcome to Admin Page.
-    				<a href="<c:url value="/logout" />">Logout</a>
-			</form>
+			<c:choose>
+						<c:when test="${(not empty user) && (user != 'anonymousUser')}">
+							<div class="h_search navbar-right">
+							<form>
+								<!-- <input type="text" class="text" value="Enter text here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter text here';}">
+					<input type="submit" value="search"> -->
+								Dear <strong>${user}</strong>, Welcome to Admin Page. <a
+									href="<c:url value="/logout" />">Logout</a>
+							</form>
+						</div>
+						</c:when>
+					</c:choose>
 		</div>
 		<div class="clearfix"></div>
 	</div>

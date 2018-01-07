@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
 		return (user == null || ((id != null) && (user.getId() == id)));
 	}
 
-	@Override
+	
 	@Transactional
 	public String setUserSignUp(SignUp signUp) {
 		String response = null;
@@ -147,7 +147,7 @@ public class UserServiceImpl implements UserService {
 		return isExists;
 	}
 
-	@Override
+	
 	@Transactional
 	public String findUserByEmail(String userEmail, HttpServletRequest request) {
 		String response = null;
@@ -169,14 +169,9 @@ public class UserServiceImpl implements UserService {
 				challengeDAO.setResetTokenForUser(myToken);
 			}
 
-			String contextPath = request.getContextPath();
-			System.out.println(contextPath);
-			StringBuffer stringBu = request.getRequestURL();
-			System.out.println(stringBu);
-			String uri = request.getRequestURI();
-			System.out.println(uri);
-			constructResetTokenEmail(request.getContextPath(),
-					request.getLocale(), token, userDTO);
+			mailService.sendEmail(userDTO, constructResetTokenEmail(request.getContextPath(),
+					request.getLocale(), token, userDTO));
+			
 			response = "link has been sent to reset your password on your email address";
 		} else {
 			logger.info("User not found by email to reset password!");
@@ -193,19 +188,13 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-	private SimpleMailMessage constructResetTokenEmail(String contextPath,
+	private String constructResetTokenEmail(String contextPath,
 			Locale locale, String token, UserDTO userDTO) {
-		String url = "http://localhost:8090" + contextPath
+		String url = "http://localhost:8080" + contextPath
 				+ "/user/changePassword?id=" + userDTO.getId() + "&token="
 				+ token;
 		System.out.println(url);
-		/*
-		 * String message = messages.getMessage("message.resetPassword", null,
-		 * locale);
-		 */
-		String message = "reset Password";
-		return constructEmail("Reset Password", message + " \r\n" + url,
-				userDTO);
+		return url;
 	}
 
 	private SimpleMailMessage constructEmail(String subject, String body,
@@ -218,7 +207,7 @@ public class UserServiceImpl implements UserService {
 		return email;
 	}
 
-	@Override
+	
 	public String validatePasswordResetToken(long id, String token) {
 		PasswordResetTokenDTO passToken = challengeDAO.findByToken(token);
 		if ((passToken == null) || (passToken.getUserDto().getId() != id)) {
@@ -238,8 +227,6 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
-	@Override
-	@Transactional
 	public String  updateUserPassword(UpdatePassword updatePassword, Long userId) {
 		String response = "Your password has been updated succesfully!";
 		UserDTO userDTO = userDao.findById(userId.intValue());

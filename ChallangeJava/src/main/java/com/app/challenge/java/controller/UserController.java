@@ -96,7 +96,7 @@ public class UserController {
 		try{
 			Long userId= (Long) session.getAttribute("userPassUpdateId");
 			model.addAttribute("PASSWORD_UPDATED", userService.updateUserPassword(updatePassword, userId));
-			model.addAttribute("user", getPrincipal());
+			model.addAttribute("user", null);
 		}catch(Exception exception){
 			logger.error("Error in update Password", exception);
 		}

@@ -49,7 +49,6 @@ public class ChallengeServiceImpl implements ChallengeService {
 	@Autowired
 	QuestionCommentDAO questionCommentDAO;
 
-	@Override
 	@Transactional
 	public String setNotifyMe(Notify notify) {
 		String msg = null;
@@ -65,7 +64,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return msg;
 	}
 
-	@Override
+	
 	@Transactional
 	public void askQuestion(AskQuestion askQuestion) {
 		UserQuestionDTO userQuestionDTO = AskQuestion.convertToDTO(askQuestion);
@@ -126,21 +125,21 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return null;
 	}
 
-	@Override
+	
 	@Transactional
 	public List<AskQuestion> getAskedQuestionList() {
 		return AskQuestion.convertDtoToModelList(userQuestionDAO
 				.getAskedQuestionList());
 	}
 
-	@Override
+	
 	@Transactional
 	public List<AskQuestion> getAllAskedQuestionList() {
 		return AskQuestion.convertDtoToModelList(userQuestionDAO
 				.getAllAskedQuestionList());
 	}
 
-	@Override
+	
 	@Transactional
 	public AskQuestion getQuestionById(String questionId) {
 		UserQuestionDTO userQuestionDTO = userQuestionDAO.getQuestionById(questionId);
@@ -155,7 +154,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return AskQuestion.convertDtoToModel(userQuestionDTO);
 	}
 
-	@Override
+	
 	@Transactional
 	public void insertUserAnswer(UserAnswer userAnswer) {
 		UserAnswerDTO userAnswerDTO = new UserAnswerDTO();
@@ -176,7 +175,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 		userQuestionDAO.insertUserAnswer(userAnswerDTO);
 	}
 
-	@Override
+	
 	@Transactional
 	public void setUserQuestionComment(QuestionComment questionComment) {
 		 QuestionCommentDTO questionCommentDTO = QuestionComment.convertToDTO(questionComment);
@@ -197,7 +196,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 			
 	}
 
-	@Override
+	
 	@Transactional
 	public void setUserAnswerComment(AnswerComment answerComment) {
 		AnswerCommentDTO answerCommentDTO = AnswerComment.convertToDTO(answerComment);

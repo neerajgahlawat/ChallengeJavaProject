@@ -11,6 +11,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -87,19 +88,30 @@ public class AppConfig extends WebMvcConfigurerAdapter{
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
          
         //Using gmail
-        mailSender.setHost("localhost");
-        //mailSender.setPort(587);
-        mailSender.setUsername("gahlawatneeraj3@gmail.com");
-        mailSender.setPassword("gahlawatneeraj1987");
+        mailSender.setHost("smtp.gmail.com");
+        mailSender.setPort(587);
+        mailSender.setUsername("challengejava@gmail.com");
+        mailSender.setPassword("Gahlawat@1988");
          
         Properties javaMailProperties = new Properties();
         javaMailProperties.put("mail.smtp.starttls.enable", "true");
         javaMailProperties.put("mail.smtp.auth", "true");
         javaMailProperties.put("mail.transport.protocol", "smtp");
         javaMailProperties.put("mail.debug", "true");//Prints out everything on screen
+        
          
         mailSender.setJavaMailProperties(javaMailProperties);
         return mailSender;
+    }
+    
+    /*
+     * FreeMarker configuration.
+     */
+    @Bean
+    public FreeMarkerConfigurationFactoryBean getFreeMarkerConfiguration() {
+        FreeMarkerConfigurationFactoryBean bean = new FreeMarkerConfigurationFactoryBean();
+        bean.setTemplateLoaderPath("/fmtemplates/");
+        return bean;
     }
 }
 

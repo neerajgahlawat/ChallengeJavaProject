@@ -8,7 +8,7 @@ import com.app.challenge.java.model.Contact;
 @Service("emailService")
 public class EmailServiceImpl implements EmailService {
 
-	@Override
+	
 	public String setContactUs(Contact contact) {
 		ContactDTO contactDTO = Contact.convertToDTO(contact);
 		return null;

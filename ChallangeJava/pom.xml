@@ -150,6 +150,11 @@
 			<artifactId>mail</artifactId>
 			<version>1.4.7</version>
 		</dependency>
+		<dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.23</version>
+        </dependency>
 	</dependencies>
 	<build>
 		<pluginManagement>
@@ -161,6 +166,8 @@
 					<configuration>
 						<source>${java.version}</source>
 						<target>${java.version}</target>
+		                <!-- <fork>true</fork>
+		                <executable>C:\Program Files\Java\jdk1.8.0_111\bin\javac.exe</executable> -->
 					</configuration>
 				</plugin>
 				<plugin>
